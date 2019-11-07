@@ -25,14 +25,14 @@ window.addEventListener('load',function(){
 
 	var stop = document.querySelector("#stop");
 
-	stop.addEventListener("click",function(){
+	stop.addEventListener("click", function(){
 		alert("haz detenido el bucle de intervalo");
 		clearInterval(tiempo);
 	});
 
 	var start = document.querySelector("#start");
 
-	start.addEventListener("click",function(){
+	start.addEventListener("click", function(){
 		alert("haz iniciado el bucle del intervalo");
 		intervalo();
 	});

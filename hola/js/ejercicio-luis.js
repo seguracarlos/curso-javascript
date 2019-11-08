@@ -14,6 +14,7 @@ if(numero >=2 && numero <=9){
 		var resultado =numero*i;
 		if(resultado == res_usuario){
 
+
 			contador++;
 		}
 

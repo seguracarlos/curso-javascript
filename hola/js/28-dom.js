@@ -70,10 +70,10 @@ for (val in divRojos){
 	divRojos[val].style.background = "red";
 }
 }
-console.log(divRojos);
+//console.log(divRojos);
 
 //trae todos los elementos de una lista el punto (.) es para clases y el # es para ID
 var divsAll = document.querySelectorAll('.rojo');
 
-console.log(divsAll);
+//console.log(divsAll);
 

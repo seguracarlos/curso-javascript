@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scoreboard</title>
+	<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+			  	
+	</script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
+		<script src="https://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+</head>
+<body>
+	<center>
+		<h2 class="display-1">Scoreboard</h2>
+			<div id="1" class="item">
+				<div class="itemContent">
+					<img class="ctrl" src="ctrl1.png"></img>
+					<div class="line"></div>					
+					<h4 class="position">1</h4>				
+					<h4 class="player">Player1</h4>
+					<h4 data-points="40" class="points">40 Puntos</h4>
+					<button data-extra="10" class="btn btn-info addPointsBtn">+10</button>
+				</div>
+			</div>
+			<div id="2" class="item">
+				<div class="itemContent">
+					<img class="ctrl" src="ctrl2.png"></img>
+					<div class="line"></div>					
+					<h4 class="position">2</h4>					
+					<h4 class="player">Player2</h4>
+					<h4 data-points="30" class="points">30 Puntos</h4>
+					<button data-extra="10" class="btn btn-info addPointsBtn">+10</button>				
+				</div>
+			</div>
+			<div id="3" class="item">
+				<div class="itemContent">
+					<img class="ctrl" src="ctrl3.png"></img>
+					<div class="line"></div>					
+					<h4 class="position">3</h4>					
+					<h4 class="player">Player3</h4>
+					<h4 data-points="20" class="points">20 Puntos</h4>
+					<button data-extra="10" class="btn btn-info addPointsBtn">+10</button>				
+				</div>
+			</div>
+			<div id="4" class="item">
+				<div class="itemContent">
+					<img class="ctrl" src="ctrl4.png"></img>	
+					<div class="line"></div>				
+					<h4 class="position">4</h4>					
+					<h4 class="player">Player4</h4>
+					<h4 data-points="15" class="points">15 Puntos</h4>
+					<button data-extra="10" class="btn btn-info addPointsBtn">+10</button>
+				</div>
+			</div>
+			<div id="5" class="item">
+				<div class="itemContent">
+					<img class="ctrl" src="ctrl5.png"></img>	
+					<div class="line"></div>				
+					<h4 class="position">5</h4>					
+					<h4 class="player">Player5</h4>
+					<h4 data-points="5" class="points">5 Puntos</h4>
+					<button data-extra="50" class="btn btn-info addPointsBtn">+50</button>
+				</div>
+			</div>			
+		</center>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	var allPositions = [];
+
+	$(document).ready(function() {
+		$( ".item" ).each(function( index, element) {
+			allPositions.push({ "id": $(this).find('.position').html(), "points": parseInt($(this).find('.points').attr("data-points"))});
+		});
+
+	});
+
+
+	$(document).on("click",'.addPointsBtn',function(){
+		$actualPoints = $(this).prev().attr("data-points");
+		$idElementToMove = $(this).parent().parent().attr("id");
+		$newPoints = parseInt($actualPoints) + parseInt($(this).attr("data-extra"));
+		$(this).prev().attr("data-points",$newPoints);
+		$(this).prev().html($newPoints+' Puntos');
+		$positionsUp = [];
+		$positionsDown = [];
+		$moifiedArray = $actualPoints;
+		//cuantas posiciones se va a mover;
+		//el que se mueve puede subir n muchas posiciones 
+		//los que no se mueven bajan todos una posicion siempre y cuando sean menores que el que se mueve
+		//posiciones menores a la actual no cuentan
+		$positionsToMove = 0;
+		$indexElement = 0;
+		$.each( allPositions, function( index, value ) {
+			if(value.id == $idElementToMove ){
+				value.points =  $newPoints;
+				$indexElement = index;
+			}
+		});
+
+		$.each( allPositions, function( index, value ) {
+			if(index < $indexElement){
+				if($newPoints > value.points);
+					$positionsToMove++;
+			}
+		});
+
+		console.log($positionsToMove);
+		//$('#'+$idElementToMove).transition({ y: - 75 }, 4000, 'snap');
+
+/*		allPositions.sort(function(a, b) {
+    			return parseFloat(b.points) - parseFloat(a.points);
+		});		
+*/
+
+
+$('#'+$idElementToMove).transition({ y: - pixelesUp }, 4000, 'snap');
+
+
+/*		if($positionsUp.length == 0){
+			pixelesUp = 76 * $positionsDown.length-1;
+			$('#'+$idElementToMove).transition({ y: - pixelesUp }, 4000, 'snap');
+		}
+		
+		if($positionsUp.length >=1){
+			pixelesUp = 76 * $positionsUp.length-1;
+			$('#'+$idElementToMove).transition({ y: - pixelesUp }, 4000, 'snap');
+		}
+*/
+
+		/*if($positionsDown.length >=1){
+			$.each(allPositions, function( index, value ) {
+					if(value.id != $idElementToMove){
+						$('#'+value.id).transition({ y: + 76 }, 4000, 'snap');
+					}
+			});
+
+		}*/
+
+/*		allPositions.sort(function(a, b) {
+    			return parseFloat(b.points) - parseFloat(a.points);
+		});		*/
+
+
+	}); 
+
+
+
+
+</script>
+
+<style type="text/css">
+html {
+    height: 100%;
+}
+
+body{
+	background: -moz-radial-gradient(center, ellipse cover, rgba(153,218,255,1) 0%, rgba(0,128,128,1) 100%); /* ff3.6+ */ 
+  -moz-background-size: cover;
+  background-size: cover;
+   height: 90%;
+    background-repeat: no-repeat;
+}	
+
+.item{
+	background: -moz-linear-gradient(left, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 100%);
+	width:400px;
+	height: 60px;
+	border-radius: 10px 10px;
+	margin-bottom: 15px;
+	border:1px solid white;
+}
+
+.points{
+	position: fixed;
+	margin-left: 163px;
+	margin-top: 20px;
+}
+
+.player{
+	position: fixed;
+	margin-top: 19px;
+	margin-left: 52px;
+}
+
+.addPointsBtn{
+	position: fixed;
+	margin-top: 11px;
+	margin-left: 144px;
+}
+
+.position{
+	position: fixed;
+	margin-top: 19px;
+	margin-left: 17px;
+}
+
+.ctrl{
+	position: absolute;
+	opacity: 0.5;
+	width: 100px;
+	height: 60px;
+	margin-left: 46px;
+}
+
+.line{
+	border-left: 2px solid #eee;
+	height: 58px;
+	position: absolute;
+	margin-left: 40px;
+}
+</style>
